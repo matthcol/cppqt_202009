@@ -153,7 +153,13 @@ void MainWindow::addMovieToWidget()
 void MainWindow::addMovieToView()
 {
     QString title = ui->leTitle->text();
-    // TODO
+    // add title in model
+    // 1. add row (empty data) in model
+    int row = modelTitles->rowCount();
+    modelTitles->insertRow(row);
+    // 2. publish data in new row
+    QModelIndex index = modelTitles->index(row);
+    modelTitles->setData(index, QVariant(title), Qt::EditRole);
 }
 
 void MainWindow::removeMovieFromWidget()
@@ -170,7 +176,10 @@ void MainWindow::removeMovieFromWidget()
 
 void MainWindow::removeMovieFromView()
 {
-    // TODO
+    QModelIndex index = ui->lvMovies->currentIndex();
+    if (index != QModelIndex()) {
+        modelTitles->removeRow(index.row());
+    }
 }
 
 /**
