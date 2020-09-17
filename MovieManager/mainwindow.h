@@ -28,10 +28,13 @@ private slots:
 
     void on_btnSaveListMovie_clicked();
 
+    void on_btnOpenListMovie_clicked();
+
 private:
     Ui::MainWindow *ui;
     void cleanMovieForm();
     void saveListMovie();
+    void loadListMovie();
     static const QString BACKUP_MOVIE_FILENAME;
 };
 #endif // MAINWINDOW_H

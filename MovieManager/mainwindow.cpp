@@ -57,8 +57,6 @@ void MainWindow::on_btnSaveMovie_clicked()
     }
 }
 
-
-
 void MainWindow::on_btnEditMovie_clicked()
 {
     QListWidgetItem *item = ui->lwMovies->currentItem();
@@ -73,7 +71,13 @@ void MainWindow::on_btnEditMovie_clicked()
 
 void MainWindow::on_btnSaveListMovie_clicked()
 {
-        saveListMovie();
+    saveListMovie();
+}
+
+
+void MainWindow::on_btnOpenListMovie_clicked()
+{
+    loadListMovie();
 }
 
 void MainWindow::cleanMovieForm()
@@ -95,6 +99,21 @@ void MainWindow::saveListMovie()
     qDebug() << listMovie;
     saveListMovieTextFile(listMovie, BACKUP_MOVIE_FILENAME);
 }
+
+void MainWindow::loadListMovie()
+{
+    try {
+        QStringList movieList = loadListMovieTextFile(BACKUP_MOVIE_FILENAME);
+        ui->lwMovies->clear();
+        for (QString &title: movieList) {
+             ui->lwMovies->addItem(title);
+        }
+    }  catch (std::runtime_error &e) {
+        // signal pb to user
+    }
+}
+
+
 
 
 

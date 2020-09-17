@@ -9,4 +9,6 @@
  */
 void  saveListMovieTextFile(const QStringList &listMovie, QString filename);
 
+QStringList loadListMovieTextFile(QString filename);
+
 #endif // BACKUPFILE_H
