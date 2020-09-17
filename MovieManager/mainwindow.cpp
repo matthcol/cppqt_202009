@@ -105,9 +105,10 @@ void MainWindow::loadListMovie()
     try {
         QStringList movieList = loadListMovieTextFile(BACKUP_MOVIE_FILENAME);
         ui->lwMovies->clear();
-        for (QString &title: movieList) {
-             ui->lwMovies->addItem(title);
-        }
+//        for (QString &title: movieList) {
+//             ui->lwMovies->addItem(title);
+//        }
+        ui->lwMovies->addItems(movieList);
     }  catch (std::runtime_error &e) {
         // signal pb to user
     }
