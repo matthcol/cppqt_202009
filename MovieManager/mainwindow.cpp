@@ -54,14 +54,7 @@ void MainWindow::on_btnCleanMovie_clicked()
 
 void MainWindow::on_btnSaveMovie_clicked()
 {
-    QString modifiedTitle = ui->leTitle->text();
-    QListWidgetItem *item = ui->lwMovies->currentItem();
-    if (item != nullptr) {
-        // TODO : check title + other fields are valid
-        item->setText(modifiedTitle);
-        ui->btnSaveMovie->setEnabled(false);
-        cleanMovieForm();
-    }
+    saveMovieToView();
 }
 
 void MainWindow::on_btnEditMovie_clicked()
@@ -135,6 +128,27 @@ void MainWindow::editMovieFromWiew()
         ui->btnSaveMovie->setEnabled(true);
     } else {
         qDebug() << "no title selected for edition";
+    }
+}
+
+void MainWindow::saveMovieToWidget()
+{
+    QString modifiedTitle = ui->leTitle->text();
+    QListWidgetItem *item = ui->lwMovies->currentItem();
+    if (item != nullptr) {
+        // TODO : check title + other fields are valid
+        item->setText(modifiedTitle);
+        ui->btnSaveMovie->setEnabled(false);
+        cleanMovieForm();
+    }
+}
+
+void MainWindow::saveMovieToView()
+{
+    QString modifiedTitle = ui->leTitle->text();
+    QModelIndex index = ui->lvMovies->currentIndex();
+    if (index != QModelIndex()) {
+        modelTitles->setData(index, QVariant(modifiedTitle), Qt::EditRole);
     }
 }
 
