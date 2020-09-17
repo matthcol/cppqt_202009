@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     backupfile.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    movie.cpp
 
 HEADERS += \
     backupfile.h \
-    mainwindow.h
+    mainwindow.h \
+    movie.h
 
 FORMS += \
     mainwindow.ui
