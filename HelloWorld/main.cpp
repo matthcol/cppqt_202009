@@ -11,6 +11,11 @@ int main(int argc, char *argv[])
     quint8 age = 44;  // declaration avec initialisation
     age = 45; // affectation (assign)
 
+    // instance avec constructeur par défaut
+    Person p;
+    // instance allouée dynamiquement (heap)
+    Person *pp = new Person("Jane Doe", 40);
+
     // declaration d'une variable objet avec initialisation par constructeur
     Person p1("Matthias", age);  // p1 = 1 objet/1 instance de la classe Person
 
@@ -38,5 +43,8 @@ int main(int argc, char *argv[])
 //    for (quint8 cpt=0; cpt<10; cpt++) {
 //        qDebug() << cpt << " ";
 //    }
+
+    // desallocation
+    delete pp;
     return a.exec();
 }
