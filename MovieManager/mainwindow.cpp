@@ -29,22 +29,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnAddMovie_clicked()
 {
-    QString title = ui->leTitle->text();
-    // TODO : check title + other fields are valid
-    ui->lwMovies->addItem(title);
-    cleanMovieForm();
+    addMovieToView();
 }
 
 void MainWindow::on_btnDeleteMovie_clicked()
 {
-    QListWidgetItem *item = ui->lwMovies->currentItem();
-    if (item != nullptr) {
-        QString titleMovieToDelete = item->text();  // item->data(Qt::DisplayRole);
-        item = ui->lwMovies->takeItem(ui->lwMovies->currentRow());
-        qDebug() << titleMovieToDelete << "deleted";
-        // delete item from memory
-        delete item;
-    }
+    removeMovieFromView();
 }
 
 void MainWindow::on_btnCleanMovie_clicked()
@@ -150,6 +140,37 @@ void MainWindow::saveMovieToView()
     if (index != QModelIndex()) {
         modelTitles->setData(index, QVariant(modifiedTitle), Qt::EditRole);
     }
+}
+
+void MainWindow::addMovieToWidget()
+{
+    QString title = ui->leTitle->text();
+    // TODO : check title + other fields are valid
+    ui->lwMovies->addItem(title);
+    cleanMovieForm();
+}
+
+void MainWindow::addMovieToView()
+{
+    QString title = ui->leTitle->text();
+    // TODO
+}
+
+void MainWindow::removeMovieFromWidget()
+{
+    QListWidgetItem *item = ui->lwMovies->currentItem();
+    if (item != nullptr) {
+        QString titleMovieToDelete = item->text();  // item->data(Qt::DisplayRole);
+        item = ui->lwMovies->takeItem(ui->lwMovies->currentRow());
+        qDebug() << titleMovieToDelete << "deleted";
+        // delete item from memory
+        delete item;
+    }
+}
+
+void MainWindow::removeMovieFromView()
+{
+    // TODO
 }
 
 /**

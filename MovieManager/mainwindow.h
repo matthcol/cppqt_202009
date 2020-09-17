@@ -44,6 +44,10 @@ private:
     void editMovieFromWiew();
     void saveMovieToWidget();
     void saveMovieToView();
+    void addMovieToWidget();
+    void addMovieToView();
+    void removeMovieFromWidget();
+    void removeMovieFromView();
     void loadListMovie();
     static const QString BACKUP_MOVIE_FILENAME;
 };
