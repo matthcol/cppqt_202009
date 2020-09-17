@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QStringListModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,8 +33,15 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    // model pour la liste de movies (title only)
+    QStringListModel *modelTitles;
+
     void cleanMovieForm();
-    void saveListMovie();
+    void saveListMovieFromWidget();
+    void saveListMovieFromModel();
+    void editMovieFromWidget();
+    void editMovieFromWiew();
     void loadListMovie();
     static const QString BACKUP_MOVIE_FILENAME;
 };

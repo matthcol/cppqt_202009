@@ -9,14 +9,21 @@ const QString MainWindow::BACKUP_MOVIE_FILENAME = "movies.txt";
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , modelTitles(new QStringListModel)
 {
     ui->setupUi(this);
+    // extra init ui settings
     ui->btnSaveMovie->setEnabled(false);
+
+    // attach model to view
+    ui->lvMovies->setModel(modelTitles);
 }
 
+// destructeur
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete modelTitles;
 }
 
 
@@ -59,19 +66,15 @@ void MainWindow::on_btnSaveMovie_clicked()
 
 void MainWindow::on_btnEditMovie_clicked()
 {
-    QListWidgetItem *item = ui->lwMovies->currentItem();
-    if (item != nullptr) {
-        QString titleMovieToEdit = item->text();
-        ui->leTitle->setText(titleMovieToEdit);
-        ui->btnSaveMovie->setEnabled(true);
-    }
+    editMovieFromWiew();
 }
 
 
 
 void MainWindow::on_btnSaveListMovie_clicked()
 {
-    saveListMovie();
+    // saveListMovieFromWidget();
+    saveListMovieFromModel();
 }
 
 
@@ -86,7 +89,11 @@ void MainWindow::cleanMovieForm()
     ui->leTitle->setText("");
 }
 
-void MainWindow::saveListMovie()
+/**
+ * save list from ListWidget to file
+ * @brief MainWindow::saveListMovie
+ */
+void MainWindow::saveListMovieFromWidget()
 {
     QStringList listMovie;
     // parcourir tous les items pour collecter les titres à sauver
@@ -100,15 +107,51 @@ void MainWindow::saveListMovie()
     saveListMovieTextFile(listMovie, BACKUP_MOVIE_FILENAME);
 }
 
+void MainWindow::saveListMovieFromModel()
+{
+   QStringList listMovie = modelTitles->stringList();
+   saveListMovieTextFile(listMovie, BACKUP_MOVIE_FILENAME);
+}
+
+void MainWindow::editMovieFromWidget()
+{
+    QListWidgetItem *item = ui->lwMovies->currentItem();
+    if (item != nullptr) {
+        QString titleMovieToEdit = item->text();
+        ui->leTitle->setText(titleMovieToEdit);
+        ui->btnSaveMovie->setEnabled(true);
+    }
+}
+
+void MainWindow::editMovieFromWiew()
+{
+    // get selection index from view
+    QModelIndex index = ui->lvMovies->currentIndex();
+    if (index != QModelIndex()) {
+        // get title movie from model at same index
+        QString titleMovieToEdit = modelTitles->data(index, Qt::EditRole).toString();
+        qDebug() << "edit title:" << titleMovieToEdit;
+        ui->leTitle->setText(titleMovieToEdit);
+        ui->btnSaveMovie->setEnabled(true);
+    } else {
+        qDebug() << "no title selected for edition";
+    }
+}
+
+/**
+ * load list titles from files and refresh ListView and ListWidget
+ * @brief MainWindow::loadListMovie
+ */
 void MainWindow::loadListMovie()
 {
     try {
+        // read movi titles from file
         QStringList movieList = loadListMovieTextFile(BACKUP_MOVIE_FILENAME);
+        // update list widget
         ui->lwMovies->clear();
-//        for (QString &title: movieList) {
-//             ui->lwMovies->addItem(title);
-//        }
         ui->lwMovies->addItems(movieList);
+        // update model list view
+        modelTitles->setStringList(movieList);
     }  catch (std::runtime_error &e) {
         // signal pb to user
     }
