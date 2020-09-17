@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QStringListModel>
+#include <movielistmodel.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,18 +36,13 @@ private:
     Ui::MainWindow *ui;
 
     // model pour la liste de movies (title only)
-    QStringListModel *modelTitles;
+    MovieListModel *modelMovies;
 
     void cleanMovieForm();
-    void saveListMovieFromWidget();
     void saveListMovieFromModel();
-    void editMovieFromWidget();
     void editMovieFromWiew();
-    void saveMovieToWidget();
     void saveMovieToView();
-    void addMovieToWidget();
     void addMovieToView();
-    void removeMovieFromWidget();
     void removeMovieFromView();
     void loadListMovie();
     static const QString BACKUP_MOVIE_FILENAME;

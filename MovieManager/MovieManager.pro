@@ -12,12 +12,14 @@ SOURCES += \
     backupfile.cpp \
     main.cpp \
     mainwindow.cpp \
-    movie.cpp
+    movie.cpp \
+    movielistmodel.cpp
 
 HEADERS += \
     backupfile.h \
     mainwindow.h \
-    movie.h
+    movie.h \
+    movielistmodel.h
 
 FORMS += \
     mainwindow.ui

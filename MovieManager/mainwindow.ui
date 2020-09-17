@@ -14,29 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListView" name="lvMovies">
-    <property name="geometry">
-     <rect>
-      <x>785</x>
-      <y>50</y>
-      <width>371</width>
-      <height>501</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>10</y>
-      <width>271</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>QListView</string>
-    </property>
-   </widget>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
@@ -66,7 +43,7 @@
        <rect>
         <x>10</x>
         <y>0</y>
-        <width>221</width>
+        <width>239</width>
         <height>80</height>
        </rect>
       </property>
@@ -183,29 +160,6 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QListWidget" name="lwMovies">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>421</width>
-       <height>461</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>10</y>
-       <width>271</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>QListWidget</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="btnDeleteMovie">
      <property name="geometry">
       <rect>
@@ -282,6 +236,16 @@
      </property>
      <property name="text">
       <string>Save</string>
+     </property>
+    </widget>
+    <widget class="QListView" name="lvMovies">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>401</width>
+       <height>491</height>
+      </rect>
      </property>
     </widget>
    </widget>
