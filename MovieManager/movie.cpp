@@ -48,7 +48,7 @@ QString Movie::toString() const
             .arg(year);
 }
 
-QDebug &operator<<(QDebug &out, const Movie &movie)
+QDebug operator<<(QDebug out, const Movie &movie)
 {
     return out << movie.toString();
 }

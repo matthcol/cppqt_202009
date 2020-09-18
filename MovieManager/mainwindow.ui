@@ -249,6 +249,16 @@
      </property>
     </widget>
    </widget>
+   <widget class="MovieDetailWidget" name="wgMovieDetail" native="true">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>20</y>
+      <width>341</width>
+      <height>531</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -285,6 +295,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MovieDetailWidget</class>
+   <extends>QWidget</extends>
+   <header>moviedetailwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -36,6 +36,9 @@ private slots:
 
     void on_btnUp_clicked();
 
+    void on_btnDown_clicked();
+signals:
+    void movieSelectionChanged(const Movie movie);
 private:
     Ui::MainWindow *ui;
 

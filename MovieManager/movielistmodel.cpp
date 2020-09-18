@@ -13,14 +13,23 @@ int MovieListModel::rowCount(const QModelIndex &parent) const
 
 QVariant MovieListModel::data(const QModelIndex &index, int role) const
 {
-    if (role==Qt::DisplayRole) {
+    switch (role) {
+    case Qt::DisplayRole: {
         const Movie &movie = movieList[index.row()];
         QString display = QString("%1, %2, %3 mn")
                 .arg(movie.getTitle())
                 .arg(movie.getYear())
                 .arg(movie.getDuration());
-        //return QVariant(movie.toString());
-        return QVariant(display);
+        //return movie.toString();
+        return display;
+        break;
+    }
+    case Qt::EditRole: {
+        const Movie &movieToEdit = movieList[index.row()];
+        QVariant variantMovie;
+        variantMovie.setValue(movieToEdit);
+        return variantMovie;
+    }
     }
     return QVariant();
 }

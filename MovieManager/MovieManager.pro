@@ -13,16 +13,19 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     movie.cpp \
+    moviedetailwidget.cpp \
     movielistmodel.cpp
 
 HEADERS += \
     backupfile.h \
     mainwindow.h \
     movie.h \
+    moviedetailwidget.h \
     movielistmodel.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    moviedetailwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

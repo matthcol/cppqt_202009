@@ -27,6 +27,7 @@ private:
     quint16 duration;
 };
 
-QDebug& operator<<(QDebug &out, const Movie &movie);
+QDebug operator<<(QDebug out, const Movie &movie);
+Q_DECLARE_METATYPE(Movie);
 
 #endif // MOVIE_H

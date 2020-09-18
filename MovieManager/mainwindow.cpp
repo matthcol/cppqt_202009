@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // attach model to view
     ui->lvMovies->setModel(modelMovies);
+
+    // event connections
+    connect(this, SIGNAL(movieSelectionChanged(Movie)), ui->wgMovieDetail, SLOT(update(const Movie&)));
 }
 
 // destructeur
@@ -82,9 +85,22 @@ void MainWindow::on_btnUp_clicked()
     if (index.row()>0) {
         index = modelMovies->index(index.row()-1);
         ui->lvMovies->setCurrentIndex(index);
+        Movie movie = modelMovies->data(index, Qt::EditRole).value<Movie>();
+        emit movieSelectionChanged(movie);
     }
 }
 
+void MainWindow::on_btnDown_clicked()
+{
+    QModelIndex index = ui->lvMovies->currentIndex();
+    if (index.row()< modelMovies->rowCount(QModelIndex())-1) {
+        index = modelMovies->index(index.row()+1);
+        ui->lvMovies->setCurrentIndex(index);
+        Movie movie = modelMovies->data(index, Qt::EditRole).value<Movie>();
+        //ui->wgMovieDetail->update(movie);
+        emit movieSelectionChanged(movie);
+    }
+}
 
 void MainWindow::on_actionOpen_triggered()
 {
@@ -149,7 +165,7 @@ void MainWindow::addMovieToView()
     // add title in model
     modelMovies->add(movie);
     // it's done
-    // qDebug() << movie << "added";
+    qDebug() << movie << "added";
 }
 
 
@@ -200,5 +216,7 @@ void MainWindow::loadListMovie()
         messageBox.exec(); // appel bloquant
     }
 }
+
+
 
 
