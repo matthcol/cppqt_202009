@@ -18,9 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // dummy list movies for the model
-    QList<Movie> movies;
-    movies << Movie("Pulp Fiction", 1994, 121) << Movie("E.T.", 1982, 117);
-    modelMovies->setMovieList(movies);
+//    QList<Movie> movies;
+//    movies << Movie("Pulp Fiction", 1994, 121) << Movie("E.T.", 1982, 117);
+//    modelMovies->setMovieList(movies);
 
     // attach model to view
     ui->lvMovies->setModel(modelMovies);
@@ -141,14 +141,14 @@ void MainWindow::removeMovieFromView()
  */
 void MainWindow::loadListMovie()
 {
-//    try {
-//        // read movi titles from file
-//        QStringList movieList = loadListMovieTextFile(BACKUP_MOVIE_FILENAME);
-//        // update model list view
-//        modelMovies->setStringList(movieList);
-//    }  catch (std::runtime_error &e) {
-//        // signal pb to user
-//    }
+    try {
+        // read movies from file
+        QList<Movie> movieList = loadListMovieTextFile(BACKUP_MOVIE_FILENAME);
+        // update model list view
+        modelMovies->setMovieList(movieList);
+    }  catch (std::runtime_error &e) {
+        // signal pb to user
+    }
 }
 
 

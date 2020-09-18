@@ -32,8 +32,18 @@ QList<Movie> MovieListModel::getMovieList() const
 
 void MovieListModel::setMovieList(const QList<Movie> &value)
 {
+    // clean data and notify view
+    int size = movieList.size();
+    if (size > 0) {
+        beginRemoveRows(QModelIndex(),0,size-1);
+        movieList.clear();
+        endRemoveRows();
+    }
+    // add new data and notify view
+    size = value.size();
+    beginInsertRows(QModelIndex(),0,size-1);
     movieList = value;
-    // TODO : notify view
+    endInsertRows();
 }
 
 void MovieListModel::add(const Movie &movie)
