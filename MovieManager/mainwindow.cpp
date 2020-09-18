@@ -3,8 +3,9 @@
 
 #include "backupfile.h"
 #include <QDebug>
+#include "movie.h"
 
-const QString MainWindow::BACKUP_MOVIE_FILENAME = "movies.txt";
+const QString MainWindow::BACKUP_MOVIE_FILENAME = "movies.csv";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -80,8 +81,8 @@ void MainWindow::cleanMovieForm()
 
 void MainWindow::saveListMovieFromModel()
 {
-//   QStringList listMovie = modelMovies->stringList();
-//   saveListMovieTextFile(listMovie, BACKUP_MOVIE_FILENAME);
+   QList<Movie> listMovie = modelMovies->getMovieList();
+   saveListMovieTextFile(listMovie, BACKUP_MOVIE_FILENAME);
 }
 
 
@@ -113,14 +114,16 @@ void MainWindow::saveMovieToView()
 
 void MainWindow::addMovieToView()
 {
-//    QString title = ui->leTitle->text();
-//    // add title in model
-//    // 1. add row (empty data) in model
-//    int row = modelMovies->rowCount();
-//    modelMovies->insertRow(row);
-//    // 2. publish data in new row
-//    QModelIndex index = modelMovies->index(row);
-//    modelMovies->setData(index, QVariant(title), Qt::EditRole);
+    // read values from UI Form
+    QString title = ui->leTitle->text();
+    quint16 year = ui->spbYear->value();
+    quint16 duration = ui->spbDuration->value();
+    // create model object
+    Movie movie(title, year, duration);
+    // add title in model
+    modelMovies->add(movie);
+    // it's done
+    // qDebug() << movie << "added";
 }
 
 
@@ -128,7 +131,7 @@ void MainWindow::removeMovieFromView()
 {
     QModelIndex index = ui->lvMovies->currentIndex();
     if (index != QModelIndex()) {
-        modelMovies->removeRow(index.row());
+        modelMovies->remove(index.row());
     }
 }
 

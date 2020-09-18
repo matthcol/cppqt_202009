@@ -17,6 +17,10 @@ public:
     QList<Movie> getMovieList() const;
     void setMovieList(const QList<Movie> &value);
 
+    // CRUD en modification
+    void add(const Movie &movie);
+    void update(int index, const Movie &movie);
+    void remove(int index);
 private:
     QList<Movie> movieList;
 

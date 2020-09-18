@@ -2,6 +2,7 @@
 #define MOVIE_H
 
 #include <QString>
+#include <QDebug>
 
 class Movie
 {
@@ -25,5 +26,7 @@ private:
     quint16 year;
     quint16 duration;
 };
+
+QDebug& operator<<(QDebug &out, const Movie &movie);
 
 #endif // MOVIE_H

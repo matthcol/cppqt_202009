@@ -15,7 +15,12 @@ QVariant MovieListModel::data(const QModelIndex &index, int role) const
 {
     if (role==Qt::DisplayRole) {
         const Movie &movie = movieList[index.row()];
-        return QVariant(movie.toString());
+        QString display = QString("%1, %2, %3 mn")
+                .arg(movie.getTitle())
+                .arg(movie.getYear())
+                .arg(movie.getDuration());
+        //return QVariant(movie.toString());
+        return QVariant(display);
     }
     return QVariant();
 }
@@ -29,4 +34,24 @@ void MovieListModel::setMovieList(const QList<Movie> &value)
 {
     movieList = value;
     // TODO : notify view
+}
+
+void MovieListModel::add(const Movie &movie)
+{
+    int index = movieList.size();
+    beginInsertRows(QModelIndex(), index, index);
+    movieList << movie;
+    endInsertRows();
+}
+
+void MovieListModel::update(int index, const Movie &movie)
+{
+
+}
+
+void MovieListModel::remove(int index)
+{
+    beginRemoveRows(QModelIndex(), index, index);
+    movieList.removeAt(index);
+    endRemoveRows();
 }
