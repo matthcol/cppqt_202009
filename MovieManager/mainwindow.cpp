@@ -3,6 +3,9 @@
 
 #include "backupfile.h"
 #include <QDebug>
+#include <QMessageBox>
+#include <QFileDialog>
+// #include <QtWidgets>  // super include pour tous les QWidgets
 #include "movie.h"
 
 const QString MainWindow::BACKUP_MOVIE_FILENAME = "movies.csv";
@@ -73,6 +76,15 @@ void MainWindow::on_btnOpenListMovie_clicked()
     loadListMovie();
 }
 
+void MainWindow::on_actionOpen_triggered()
+{
+    // how to choose file with dialog
+    QString filename = QFileDialog::getOpenFileName(
+                this, "Open movie list", QString(),
+                "CSV Files (*.csv *.tsv);;All Files(*.*)");
+    qDebug() << "File selected:" << filename;
+}
+
 void MainWindow::cleanMovieForm()
 {
     // default form settings
@@ -83,6 +95,9 @@ void MainWindow::saveListMovieFromModel()
 {
    QList<Movie> listMovie = modelMovies->getMovieList();
    saveListMovieTextFile(listMovie, BACKUP_MOVIE_FILENAME);
+   // retour vers l'utilisateur
+   // ui->statusbar->showMessage("movies saved"); // message est permanent
+   ui->statusbar->showMessage("movies saved", 2000);
 }
 
 
@@ -142,35 +157,44 @@ void MainWindow::removeMovieFromView()
 void MainWindow::loadListMovie()
 {
     try {
-        // read movies from file
-        QList<Movie> movieList = loadListMovieTextFile(BACKUP_MOVIE_FILENAME);
-        // update model list view
-        modelMovies->setMovieList(movieList);
+        bool loadOK = true;
+        if (modelMovies->rowCount(QModelIndex()) > 0) {
+            QMessageBox openMessageBox;
+            openMessageBox.setText("Your work is not saved.");
+            openMessageBox.setInformativeText("Are you sure to load new data ?");
+            openMessageBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            // QMessageBox::Discard, QMessageBox::Cancel, QMessageBox::Yes,
+            // QMessageBox::No, QMessageBox::Save, QMessageBox::Ok
+            openMessageBox.setDefaultButton(QMessageBox::No);
+            int ret = openMessageBox.exec();
+            qDebug() << "choice:"<< ret;
+            if (ret == QMessageBox::No) {
+                loadOK = false;
+            }
+        }
+        if (loadOK) {
+            // read movies from file
+            QList<Movie> movieList = loadListMovieTextFile(BACKUP_MOVIE_FILENAME);
+            // update model list view
+            modelMovies->setMovieList(movieList);
+            // example of message box (info) to user
+    //        QMessageBox messageBox;
+    //        messageBox.setText("New list of movies loaded");
+    //        messageBox.exec(); // appel bloquant
+        }
     }  catch (std::runtime_error &e) {
         // signal pb to user
+        QMessageBox messageBox;
+        messageBox.setText("Error while loading data from file");
+        messageBox.exec(); // appel bloquant
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void MainWindow::on_btnUp_clicked()
+{
+    QModelIndex index = ui->lvMovies->currentIndex();
+    if (index.row()>0) {
+        index = modelMovies->index(index.row()-1);
+        ui->lvMovies->setCurrentIndex(index);
+    }
+}

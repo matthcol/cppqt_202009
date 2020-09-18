@@ -32,6 +32,10 @@ private slots:
 
     void on_btnOpenListMovie_clicked();
 
+    void on_actionOpen_triggered();
+
+    void on_btnUp_clicked();
+
 private:
     Ui::MainWindow *ui;
 
