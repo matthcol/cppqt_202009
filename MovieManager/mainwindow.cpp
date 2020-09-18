@@ -76,6 +76,16 @@ void MainWindow::on_btnOpenListMovie_clicked()
     loadListMovie();
 }
 
+void MainWindow::on_btnUp_clicked()
+{
+    QModelIndex index = ui->lvMovies->currentIndex();
+    if (index.row()>0) {
+        index = modelMovies->index(index.row()-1);
+        ui->lvMovies->setCurrentIndex(index);
+    }
+}
+
+
 void MainWindow::on_actionOpen_triggered()
 {
     // how to choose file with dialog
@@ -84,6 +94,7 @@ void MainWindow::on_actionOpen_triggered()
                 "CSV Files (*.csv *.tsv);;All Files(*.*)");
     qDebug() << "File selected:" << filename;
 }
+
 
 void MainWindow::cleanMovieForm()
 {
@@ -190,11 +201,4 @@ void MainWindow::loadListMovie()
     }
 }
 
-void MainWindow::on_btnUp_clicked()
-{
-    QModelIndex index = ui->lvMovies->currentIndex();
-    if (index.row()>0) {
-        index = modelMovies->index(index.row()-1);
-        ui->lvMovies->setCurrentIndex(index);
-    }
-}
+
